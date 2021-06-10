@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-06-06T01:26:10.143864+00:00",
+  "timestamp": "2021-06-10T01:02:20.074085+00:00",
   "repo": "httpwg/http2-spec",
   "labels": [
     {
@@ -34681,7 +34681,7 @@
       "labels": [],
       "body": "Improve on #846 that fixes for #815 by adding extra clarity:\r\n + The validation for uppercase characters is no longer listed separately\r\n + It is clearly stated that violations of the full HTTP ABNF field definition MAY be treated as *Malformed*",
       "createdAt": "2021-06-03T01:17:57Z",
-      "updatedAt": "2021-06-03T21:52:34Z",
+      "updatedAt": "2021-06-08T23:16:25Z",
       "baseRepository": "httpwg/http2-spec",
       "baseRefName": "main",
       "baseRefOid": "b24293090c7b833f8818f8167fc2383b0077b64a",
@@ -34912,6 +34912,66 @@
               "body": "Also, if this text is not ok, that says an impl MAY NOT validate against http ABNF , which is in contradiction to the section on intermediaries?",
               "createdAt": "2021-06-03T21:52:34Z",
               "updatedAt": "2021-06-03T21:52:34Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njc4MjAwMDI2",
+          "commit": {
+            "abbreviatedOid": "ef18d85"
+          },
+          "author": "mnot",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-08T07:50:24Z",
+          "updatedAt": "2021-06-08T07:50:24Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "Greg, I think we're largely in agreement -- my text above is arguing for adding more nuance / information, not fundamentally against what you're proposing.\r\n\r\nThe one place where I *potentially* see disagreement is with 'I want it to be ok not to do that and to just reset st[r]eam'. It would be really good if we had a common understanding as to whether this is the right thing to do when a server receives a request and has the opportunity to generate a 400. I think that needs wider discussion.\r\n",
+              "createdAt": "2021-06-08T07:50:24Z",
+              "updatedAt": "2021-06-08T07:50:24Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njc4NDI3NjY4",
+          "commit": {
+            "abbreviatedOid": "ef18d85"
+          },
+          "author": "gregw",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-08T12:05:27Z",
+          "updatedAt": "2021-06-08T12:05:28Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "@mnot  I think the split should be syntax versus semantics.  If a field breaks the field syntax (ie grammar) for h2 or HTTP, then it is a protocol error as it is a field should never have been sent.\r\nWhilst if the field breaks HTTP semantics (eg. wrong type for the value, duplicate etc.) then it is a field that can be sent but that can't be understood, so it should be handled with a  400 (or perhaps ignorable or rejected in some other way).\r\n\r\nSo the nuance that you are after is that for fields in the syntax validation gap between minimal h2 and HTTP you want to give implementations some flexibility to treat them like semantic issues.  So perhaps text like:\r\n\r\n```suggestion\r\n          <t>\r\n            In addition to the minimum validation defined above, non pseudo-header fields\r\n            that violate the HTTP ABNF grammar from <xref target=\"HTTP\" section=\"5\"/> MAY either: be\r\n            treated as <xref target=\"malformed\">malformed</xref>; be ignored; or if part of a request then responded to \r\n            with a 400 Bad Request response.\r\n          </t>\r\n```\r\n\r\nBut then do we need to say that 400 responses and corrections are also applicable to fields that violate the HTTP semantics?  or is that just assumed?\r\n\r\nPlus also, for my own implementation, I really would not want to allow field-names with double quotes into the phase of being semantically evaluated.  It is probably safe to do so, but that code was written and tested against the HTTP semantics which do not allow double-quotes, so I really have no idea that it is safe to let such field propagate into it.  It's also somewhat user extensible and I have even less idea what downstream problems could happen if I let such fields through.  Nor do I want to enhance that semantic layer to do another round of syntax validation and carbon emissions generation.\r\n\r\nOh no... I find myself yet again relitigating... if we just said the h2 implementations MUST NOT send fields that break the HTTP syntax, then there would be no gap and thus no problem.  I keep coming back to that because I'm not understanding the use-case for allowing a message with a field-name containing a double quote?  If we just took a few more characters out of the acceptable alphabet for h2 field validation, then this issue goes away and I don't think we break anybody?",
+              "createdAt": "2021-06-08T12:05:27Z",
+              "updatedAt": "2021-06-08T12:05:28Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njc5MDgyNzg0",
+          "commit": {
+            "abbreviatedOid": "ef18d85"
+          },
+          "author": "gregw",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-08T23:16:25Z",
+          "updatedAt": "2021-06-08T23:16:25Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "@mnot to get rid of the gap problem, we could just increase the minimal validation to exclude all field names that \r\nbreak HTTP syntax (but not semantics).\r\n```suggestion\r\n              A field name MUST NOT contain characters 0x00-0x20, 0x22, 0x28, 0x29,\r\n              0x2C, 0x41-0x5D, 0x7B, 0x7D or 0x7F-0xFF (all ranges inclusive).\r\n              This limits field names to visible ASCII characters permitted by the HTTP ABNF \r\n              grammar from <xref target=\"HTTP\" section=\"5\"/>, other than uppercase characters \r\n              ('A' to 'Z', ASCII 0x41 to 0x5a).\r\n```\r\nThe down side ofthis is a slightly more difficult check expression, that probably needs to dereference to a table.",
+              "createdAt": "2021-06-08T23:16:25Z",
+              "updatedAt": "2021-06-08T23:16:25Z"
             }
           ]
         }
