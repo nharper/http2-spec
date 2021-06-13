@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-06-10T01:02:20.074085+00:00",
+  "timestamp": "2021-06-13T00:58:24.118182+00:00",
   "repo": "httpwg/http2-spec",
   "labels": [
     {
@@ -34676,18 +34676,18 @@
       "url": "https://github.com/httpwg/http2-spec/pull/861",
       "state": "OPEN",
       "author": "gregw",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Improve on #846 that fixes for #815 by adding extra clarity:\r\n + The validation for uppercase characters is no longer listed separately\r\n + It is clearly stated that violations of the full HTTP ABNF field definition MAY be treated as *Malformed*",
       "createdAt": "2021-06-03T01:17:57Z",
-      "updatedAt": "2021-06-08T23:16:25Z",
+      "updatedAt": "2021-06-10T11:52:57Z",
       "baseRepository": "httpwg/http2-spec",
       "baseRefName": "main",
-      "baseRefOid": "b24293090c7b833f8818f8167fc2383b0077b64a",
+      "baseRefOid": "0d552116b4a939c5c75f2756318d2387448c2f50",
       "headRepository": "gregw/http2-spec",
       "headRefName": "issue-815-full-validation",
-      "headRefOid": "ef18d85660664c4b8fb6fb08dcc5ed92b15eb0a5",
+      "headRefOid": "ff56cce3f2b53c72e20cbea21c5be6564fd112ef",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -34695,10 +34695,31 @@
       "comments": [
         {
           "author": "gregw",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "@martinthomson I think these are good simplifications/clarifications",
           "createdAt": "2021-06-03T01:18:50Z",
           "updatedAt": "2021-06-03T01:18:50Z"
+        },
+        {
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@martinthomson should I spin out the non controversial change (of combining the lowercase validation into the minimal validation bullet point) into it's own PR so that it doesn't get lost if this PR never reaches a conclusion? ",
+          "createdAt": "2021-06-10T05:03:06Z",
+          "updatedAt": "2021-06-10T05:03:06Z"
+        },
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "If you could, that might help.  I want to talk about the tricky question at our interim next week, but that other piece I can just merge.",
+          "createdAt": "2021-06-10T05:07:16Z",
+          "updatedAt": "2021-06-10T05:07:16Z"
+        },
+        {
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The non controversial changes have been moved to #864 ",
+          "createdAt": "2021-06-10T05:26:19Z",
+          "updatedAt": "2021-06-10T05:26:19Z"
         }
       ],
       "reviews": [
@@ -34841,7 +34862,7 @@
             "abbreviatedOid": "ef18d85"
           },
           "author": "gregw",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2021-06-03T08:10:26Z",
@@ -34881,7 +34902,7 @@
             "abbreviatedOid": "ef18d85"
           },
           "author": "gregw",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2021-06-03T12:50:12Z",
@@ -34901,7 +34922,7 @@
             "abbreviatedOid": "ef18d85"
           },
           "author": "gregw",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2021-06-03T21:52:34Z",
@@ -34941,7 +34962,7 @@
             "abbreviatedOid": "ef18d85"
           },
           "author": "gregw",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2021-06-08T12:05:27Z",
@@ -34961,7 +34982,7 @@
             "abbreviatedOid": "ef18d85"
           },
           "author": "gregw",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2021-06-08T23:16:25Z",
@@ -34972,6 +34993,103 @@
               "body": "@mnot to get rid of the gap problem, we could just increase the minimal validation to exclude all field names that \r\nbreak HTTP syntax (but not semantics).\r\n```suggestion\r\n              A field name MUST NOT contain characters 0x00-0x20, 0x22, 0x28, 0x29,\r\n              0x2C, 0x41-0x5D, 0x7B, 0x7D or 0x7F-0xFF (all ranges inclusive).\r\n              This limits field names to visible ASCII characters permitted by the HTTP ABNF \r\n              grammar from <xref target=\"HTTP\" section=\"5\"/>, other than uppercase characters \r\n              ('A' to 'Z', ASCII 0x41 to 0x5a).\r\n```\r\nThe down side ofthis is a slightly more difficult check expression, that probably needs to dereference to a table.",
               "createdAt": "2021-06-08T23:16:25Z",
               "updatedAt": "2021-06-08T23:16:25Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjgwMzU1NjMz",
+          "commit": {
+            "abbreviatedOid": "85f5398"
+          },
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-10T05:28:04Z",
+          "updatedAt": "2021-06-10T05:28:05Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "I'll resolve this comment, because even if it is agreed to validate against the HTTP field name syntax, this is a horrid way to specify it!",
+              "createdAt": "2021-06-10T05:28:04Z",
+              "updatedAt": "2021-06-10T05:28:05Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjgwNjgzNjI0",
+          "commit": {
+            "abbreviatedOid": "ff56cce"
+          },
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-10T11:52:57Z",
+          "updatedAt": "2021-06-10T11:52:57Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "To give some more concrete data, here is [Jetty's implementation of h2 field-name validation](https://github.com/eclipse/jetty.project/blob/jetty-11.0.4/jetty-http2/http2-hpack/src/main/java/org/eclipse/jetty/http2/hpack/HpackDecoder.java#L170-L198).  You can see that it treats any violations of either h2 or http field criteria as a streamException (ie reset).\r\n\r\nAt the very least, it would be really good if this update of the specification did not make this existing (and used) implementation non compliant and needing to be rewritten to in order to send 400 responses when used in a server.\r\n\r\nIt would be great if the specification explicitly said that a compliant implementation MAY be implemented like this, so we don't have to deal with users trying to send bizarre field-names and complaining we are not compliant with the spec.\r\n\r\n\r\n\r\n",
+              "createdAt": "2021-06-10T11:52:57Z",
+              "updatedAt": "2021-06-10T11:52:57Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 864,
+      "id": "MDExOlB1bGxSZXF1ZXN0NjY2NTE4MjQz",
+      "title": "Improve on fix for #815 for lowercase validation",
+      "url": "https://github.com/httpwg/http2-spec/pull/864",
+      "state": "MERGED",
+      "author": "gregw",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The validation for uppercase characters is no longer listed separately, but instead included with the minimal validation.",
+      "createdAt": "2021-06-10T05:19:47Z",
+      "updatedAt": "2021-06-10T06:00:07Z",
+      "baseRepository": "httpwg/http2-spec",
+      "baseRefName": "main",
+      "baseRefOid": "b24293090c7b833f8818f8167fc2383b0077b64a",
+      "headRepository": "gregw/http2-spec",
+      "headRefName": "issue-815-lowercase",
+      "headRefOid": "920aafdc5ad4e97845023b6044a8b0c9d3a8dcc4",
+      "closedAt": "2021-06-10T06:00:07Z",
+      "mergedAt": "2021-06-10T06:00:06Z",
+      "mergedBy": "martinthomson",
+      "mergeCommit": {
+        "oid": "0d552116b4a939c5c75f2756318d2387448c2f50"
+      },
+      "comments": [
+        {
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@martinthomson : factored out non controversial changes from #861 ",
+          "createdAt": "2021-06-10T05:20:47Z",
+          "updatedAt": "2021-06-10T05:20:47Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjgwMzU3NTM3",
+          "commit": {
+            "abbreviatedOid": "b169959"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-06-10T05:32:27Z",
+          "updatedAt": "2021-06-10T05:32:36Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "```suggestion\r\n              A field name MUST NOT contain characters in the ranges 0x00-0x20, 0x41-0x5A, or 0x7F-0xFF\r\n```",
+              "createdAt": "2021-06-10T05:32:27Z",
+              "updatedAt": "2021-06-10T05:32:36Z"
             }
           ]
         }
