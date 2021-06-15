@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-06-13T00:58:24.118182+00:00",
+  "timestamp": "2021-06-15T00:59:05.798309+00:00",
   "repo": "httpwg/http2-spec",
   "labels": [
     {
@@ -35050,7 +35050,7 @@
       "labels": [],
       "body": "The validation for uppercase characters is no longer listed separately, but instead included with the minimal validation.",
       "createdAt": "2021-06-10T05:19:47Z",
-      "updatedAt": "2021-06-10T06:00:07Z",
+      "updatedAt": "2021-06-13T22:54:09Z",
       "baseRepository": "httpwg/http2-spec",
       "baseRefName": "main",
       "baseRefOid": "b24293090c7b833f8818f8167fc2383b0077b64a",
