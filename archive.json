@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-06-15T00:59:05.798309+00:00",
+  "timestamp": "2021-06-17T00:54:33.698286+00:00",
   "repo": "httpwg/http2-spec",
   "labels": [
     {
@@ -19097,12 +19097,13 @@
       "author": "mnot",
       "authorAssociation": "MEMBER",
       "assignees": [
-        "martinthomson"
+        "martinthomson",
+        "mnot"
       ],
       "labels": [],
       "body": "There's currently a slight divergence in IANA policies between h2 and h3:\r\n\r\n- Frame Types: IETF Review, Experimental Use (h2) / Standards Action, Specification Required (h3)\r\n- Settings: Expert Review, Experimental Use / Standards Action, Specification Required\r\n- Error Codes: Expert Review / Standards Action, Specification Required\r\n\r\nIf we can align these with low pain, it might be worthwhile; e.g., can we get rid of the experimental use areas and upgrade Expert Review to Specification Required?",
       "createdAt": "2021-03-04T04:36:24Z",
-      "updatedAt": "2021-05-24T10:26:45Z",
+      "updatedAt": "2021-06-15T21:48:42Z",
       "closedAt": null,
       "comments": [
         {
@@ -19593,6 +19594,24 @@
           "updatedAt": "2021-06-04T03:28:13Z"
         }
       ]
+    },
+    {
+      "number": 865,
+      "id": "MDU6SXNzdWU5MjE4NDI0NDQ=",
+      "title": "Errors at the border of framing and semantics",
+      "url": "https://github.com/httpwg/http2-spec/issues/865",
+      "state": "OPEN",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "mnot"
+      ],
+      "labels": [],
+      "body": "Validating fields for characters has raised a concern where we don't have a clear delineation between framing and semantics.  So the way that endpoints handle those cases is unclear.  For requests in particular, the choice between resetting a stream and sending a 4xx response is unclear.\r\n\r\nIt would be good if we could have more consistent overall behaviour here, but we have seen from the character composition issue (see #815) that different implementations will enforce the rules at different layers.  We probably need to allow for some flexibility.\r\n\r\n@mnot has volunteered to help us navigate this somewhat nuanced issue. ",
+      "createdAt": "2021-06-15T22:07:23Z",
+      "updatedAt": "2021-06-15T22:07:23Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -35090,6 +35109,66 @@
               "body": "```suggestion\r\n              A field name MUST NOT contain characters in the ranges 0x00-0x20, 0x41-0x5A, or 0x7F-0xFF\r\n```",
               "createdAt": "2021-06-10T05:32:27Z",
               "updatedAt": "2021-06-10T05:32:36Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 866,
+      "id": "MDExOlB1bGxSZXF1ZXN0NjcwODYwNTEy",
+      "title": "Discuss invalid field names and values",
+      "url": "https://github.com/httpwg/http2-spec/pull/866",
+      "state": "OPEN",
+      "author": "mnot",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #865",
+      "createdAt": "2021-06-16T00:12:10Z",
+      "updatedAt": "2021-06-16T23:41:01Z",
+      "baseRepository": "httpwg/http2-spec",
+      "baseRefName": "main",
+      "baseRefOid": "0d552116b4a939c5c75f2756318d2387448c2f50",
+      "headRepository": "mnot/http2-spec",
+      "headRefName": "mnot-validation",
+      "headRefOid": "dc8d7fd177b968fba783aa1f374274e41ccce003",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg1MDQ5Mzgw",
+          "commit": {
+            "abbreviatedOid": "dc8d7fd"
+          },
+          "author": "Lukasa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I think this is reasonable. ",
+          "createdAt": "2021-06-16T11:32:01Z",
+          "updatedAt": "2021-06-16T11:32:01Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg1NzQ3MTcw",
+          "commit": {
+            "abbreviatedOid": "dc8d7fd"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I like this, but I want to make sure that we have captured the desired logic.",
+          "createdAt": "2021-06-16T23:35:28Z",
+          "updatedAt": "2021-06-16T23:41:01Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "I just want to poke on this \"MAY\" here a little.  I think it's right, but I want to test it.\r\n\r\nThis is \"MAY\" on the basis that recipients might not detect an error, not because - when an error is detected - we want the recipient to mostly ignore that error, right?\r\n\r\nWhat I'm trying to get at is whether the structure here is:\r\n\r\nMAY check\r\nif checked then:\r\n* SHOULD send 400 when appropriate\r\n* otherwise, treat as malformed\r\n\r\nIn which case the otherwise could be a MUST.  Though the wording chosen here is such that it would make a poor MUST, I think that I might prefer something stronger.\r\n\r\nThe other factor arguing against a stronger statement is that the SHOULD allows for requests to be treated with other than a 400 response.  That is, it effectively allows errors to be ignored or RST_STREAM to be sent instead.  We want that, but it makes it hard to say \"SHOULD ... unless\".  I also don't want to touch the existing SHOULD statement, which is good in its current form.\r\n\r\nMy preference then might be to say SHOULD here rather than MAY.\r\n\r\n```suggestion\r\n            code cannot be sent (e.g., because the error occurs in a trailer field), the recipient SHOULD\r\n```",
+              "createdAt": "2021-06-16T23:35:29Z",
+              "updatedAt": "2021-06-16T23:41:01Z"
             }
           ]
         }
