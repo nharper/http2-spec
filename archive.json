@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-06-17T00:54:33.698286+00:00",
+  "timestamp": "2021-06-20T00:58:41.066783+00:00",
   "repo": "httpwg/http2-spec",
   "labels": [
     {
@@ -19612,6 +19612,32 @@
       "updatedAt": "2021-06-15T22:07:23Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 867,
+      "id": "MDU6SXNzdWU5MjM1MTAxOTY=",
+      "title": "Target URIs",
+      "url": "https://github.com/httpwg/http2-spec/issues/867",
+      "state": "OPEN",
+      "author": "mnot",
+      "authorAssociation": "MEMBER",
+      "assignees": [
+        "mnot"
+      ],
+      "labels": [],
+      "body": "The `Request Pseudo-Header Fields` section talks about how to generate the various pseudo-header fields from a message, but not not how to create a message from the abstract constructs in HTTP semantics, such as the target URI.\r\n\r\nThis includes security considerations around trusting the contents of `:scheme`.\r\n\r\nI'm happy to do a PR for this.\r\n\r\nAlso, this is a weird paragraph:\r\n\r\n> HTTP/2 uses the \"http\" and \"https\" URI schemes defined in <xref target=\"HTTP\" section=\"4.2\"/>. HTTP/2 shares the same default port numbers: 80 for \"http\" URIs and 443 for \"https\" URIs.  As a result, implementations processing requests for target resource URIs like <tt>http://example.org/foo</tt> or <tt>https://example.com/bar</tt> are required to first discover whether the upstream server (the immediate peer to which the client wishes to establish a connection) supports HTTP/2.\r\n\r\n\"HTTP/2 shares the same default port numbers\" implies that it could choose to do otherwise; while that might have been an open question pre-core, I think this needs to be re-worded. Likewise, \"requests for target resource URIs\" is odd; is this meant to be \"requests with target URIs\"?",
+      "createdAt": "2021-06-17T06:26:33Z",
+      "updatedAt": "2021-06-17T07:03:12Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yeah, most of this is just OLD.  For instance, the \"discovery\" aspect really only relates to the need to use ALPN, but we have a better nomenclature now.\r\n\r\nIf you are happy to do a PR, I'm more than happy to review rather than write.\r\n\r\n",
+          "createdAt": "2021-06-17T07:03:05Z",
+          "updatedAt": "2021-06-17T07:03:05Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -34693,21 +34719,21 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NjYwNDk1MzI3",
       "title": "Improve on fix for #815",
       "url": "https://github.com/httpwg/http2-spec/pull/861",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "gregw",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Improve on #846 that fixes for #815 by adding extra clarity:\r\n + The validation for uppercase characters is no longer listed separately\r\n + It is clearly stated that violations of the full HTTP ABNF field definition MAY be treated as *Malformed*",
       "createdAt": "2021-06-03T01:17:57Z",
-      "updatedAt": "2021-06-10T11:52:57Z",
+      "updatedAt": "2021-06-18T01:45:15Z",
       "baseRepository": "httpwg/http2-spec",
       "baseRefName": "main",
       "baseRefOid": "0d552116b4a939c5c75f2756318d2387448c2f50",
       "headRepository": "gregw/http2-spec",
       "headRefName": "issue-815-full-validation",
       "headRefOid": "ff56cce3f2b53c72e20cbea21c5be6564fd112ef",
-      "closedAt": null,
+      "closedAt": "2021-06-18T01:45:15Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -34739,6 +34765,27 @@
           "body": "The non controversial changes have been moved to #864 ",
           "createdAt": "2021-06-10T05:26:19Z",
           "updatedAt": "2021-06-10T05:26:19Z"
+        },
+        {
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@martinthomson any feedback from the interim meeting about how I can make this PR more palatable? ",
+          "createdAt": "2021-06-18T00:37:18Z",
+          "updatedAt": "2021-06-18T00:37:18Z"
+        },
+        {
+          "author": "mnot",
+          "authorAssociation": "MEMBER",
+          "body": "@gregw I took an action to work on a PR - see https://github.com/httpwg/http2-spec/pull/866",
+          "createdAt": "2021-06-18T01:17:55Z",
+          "updatedAt": "2021-06-18T01:17:55Z"
+        },
+        {
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Closed in favour of #866 ",
+          "createdAt": "2021-06-18T01:45:15Z",
+          "updatedAt": "2021-06-18T01:45:15Z"
         }
       ],
       "reviews": [
@@ -35054,6 +35101,26 @@
               "updatedAt": "2021-06-10T11:52:57Z"
             }
           ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg2OTUwODEz",
+          "commit": {
+            "abbreviatedOid": "ff56cce"
+          },
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-18T00:53:23Z",
+          "updatedAt": "2021-06-18T00:53:23Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "@mnot, I really think something does need to be said here, since as currently worded it makes the jetty implementation non-compliant, in that we treat fields that break the ABNF as malformed, but send 400s for any semantic issues.    This was allowed in the previous versions, but now this document says \"fields are not valid in the following cases:\"  without any caviate to indicate that it is minimal validation (eg  \"fields are not valid in at least the following cases:\")\r\n\r\nThe intention was to require minimal validation, but as written the change is specifying exact validation since a reasonable reading of this section would suggest that any fields that are not-not-valid are valid.   So to enforce implementation that were not validating, you have now made jetty, which has always validated, non compliant!\r\n\r\nTo resolve this against the document as written, I would need to do a second round of character checking of the field above the hpack layer to issue a 400.   It will be difficult for me to do this without impossing this second character checking on all protocols: HTTP/1, FCGI, etc. as by the time I'm able to send 400 responses I am in protocol neutral code.    This will be a significant impact with a huge carbon footprint as my server deals with some very high volume websites.\r\n",
+              "createdAt": "2021-06-18T00:53:23Z",
+              "updatedAt": "2021-06-18T00:53:23Z"
+            }
+          ]
         }
       ]
     },
@@ -35126,7 +35193,7 @@
       "labels": [],
       "body": "Fixes #865",
       "createdAt": "2021-06-16T00:12:10Z",
-      "updatedAt": "2021-06-16T23:41:01Z",
+      "updatedAt": "2021-06-18T08:00:44Z",
       "baseRepository": "httpwg/http2-spec",
       "baseRefName": "main",
       "baseRefOid": "0d552116b4a939c5c75f2756318d2387448c2f50",
@@ -35169,6 +35236,126 @@
               "body": "I just want to poke on this \"MAY\" here a little.  I think it's right, but I want to test it.\r\n\r\nThis is \"MAY\" on the basis that recipients might not detect an error, not because - when an error is detected - we want the recipient to mostly ignore that error, right?\r\n\r\nWhat I'm trying to get at is whether the structure here is:\r\n\r\nMAY check\r\nif checked then:\r\n* SHOULD send 400 when appropriate\r\n* otherwise, treat as malformed\r\n\r\nIn which case the otherwise could be a MUST.  Though the wording chosen here is such that it would make a poor MUST, I think that I might prefer something stronger.\r\n\r\nThe other factor arguing against a stronger statement is that the SHOULD allows for requests to be treated with other than a 400 response.  That is, it effectively allows errors to be ignored or RST_STREAM to be sent instead.  We want that, but it makes it hard to say \"SHOULD ... unless\".  I also don't want to touch the existing SHOULD statement, which is good in its current form.\r\n\r\nMy preference then might be to say SHOULD here rather than MAY.\r\n\r\n```suggestion\r\n            code cannot be sent (e.g., because the error occurs in a trailer field), the recipient SHOULD\r\n```",
               "createdAt": "2021-06-16T23:35:29Z",
               "updatedAt": "2021-06-16T23:41:01Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg2OTU4NTA4",
+          "commit": {
+            "abbreviatedOid": "dc8d7fd"
+          },
+          "author": "mnot",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-18T01:17:12Z",
+          "updatedAt": "2021-06-18T01:17:12Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "Your analysis is correct, but I think it would be better to convert MAY into a 'can', so that readers aren't confused about the (not terribly obvious) link between it and the preceding MAY. Does that work for you?",
+              "createdAt": "2021-06-18T01:17:12Z",
+              "updatedAt": "2021-06-18T01:17:12Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg2OTY3Mzg0",
+          "commit": {
+            "abbreviatedOid": "dc8d7fd"
+          },
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2021-06-18T01:44:08Z",
+          "updatedAt": "2021-06-18T01:44:19Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "Firstly this is a big improvement on the current text, as it no longer makes existing good implementations non-compliant.\r\n\r\nHowever, I still do take issue with \"SHOULD do so using the 400\" as I believe that you have applied that too broadly.\r\n\r\nI agree that semantic errors in fields (duplicate fields, missing fields, wrong value types etc.) SHOULD be responded to with a 400, but I do not think that applies for basic violations of field grammer as defined by the ABNF (ie the example of a field name including a double quote) as defined by sections 5.1 and 5.5 of the referenced HTTP document.\r\n\r\nIt is confusing and over complex to require that a field containing `:` is malformed, but one containing `\"` is h2 is a bad-request sometimes and malformed othertimes.  \r\n\r\nIt is not efficient to require two validations for field grammer: once for the h2 requirements (malformed if it contains a ':' or 'A') and then again for HTTP (400 if it contains a double quote).  This will be a massive carbon foot print as every single field will need to be scanned a second time (or a more complex single scan) just to check for the vanishly small possibility that there is a double quote. \r\n\r\nI think that recipients MAY validate against 5.1 & 5.5 and when they do they should reject fields as malformed.  Recipients MAY perform additional validation against the semantics of HTTP fields (ref whole document), in which case they SHOULD reject requests with 400.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+              "createdAt": "2021-06-18T01:44:08Z",
+              "updatedAt": "2021-06-18T01:44:19Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg2OTcyOTYy",
+          "commit": {
+            "abbreviatedOid": "dc8d7fd"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-18T02:01:09Z",
+          "updatedAt": "2021-06-18T02:01:09Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "This seems to be about two things : division of responsibilities (400 is core semantics, RST_STREAM is h2) and where enforcement responsibilities lie as a result.  I think that we've learned that the character composition of fields (names or values) is split, but enforcement might occur at either layer.\r\n\r\nWhat Mark's text attempts to do (and I think it succeeds) is say that when the rule is in core semantics, then the enforcement should look like a semantic-layer rejection.  That's a principled position.  \r\n\r\nHowever, this acknowledges the pragmatic position and allows it (it's not MUST): if you detect \":\" and send RST_STREAM, that's OK too.  It just recommends (with SHOULD) that you try to engage semantic-layer signals, because those are better.  On principle, I agree with this view.\r\n\r\nThat some implementations combine these checks and use what amount to less rigorous signals, doesn't make them bad.  It is just a trade-off they make: efficient processing over clearer signaling.  As this is a serious error that will likely engage engineers and not users, what signal is used doesn't matter THAT much.\r\n\r\n(As for the \"MAY\" vs. \"can\", \"can\" works for me.)",
+              "createdAt": "2021-06-18T02:01:09Z",
+              "updatedAt": "2021-06-18T02:01:09Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg2OTgxNzM4",
+          "commit": {
+            "abbreviatedOid": "dc8d7fd"
+          },
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-18T02:26:29Z",
+          "updatedAt": "2021-06-18T02:26:30Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "@martinthomson but I don't think the text does achieve allowing for semantic rejection of  invalid fields when possible.  It still leaves the MUST be treated as malformed for any field with a `:` or `A`, etc.  \r\n\r\nIf sending a 400 when possible is a principled position, then the principle should apply to all invalid fields and  I don't see why the fields that are at risk of creating a security problem (and this invalidated at the h2 level) are exempted from the principle?  The text should say that when possible a receiver SHOULD reject a malformed field with a 400 regardless of the reason for the malformation.  \r\n\r\nThis proposed text is that it still encourages two classes of invalid fields with different behaviours for those classes.  Thus implementors will either simply follow the document and be less efficient or be more efficient and considered \"less rigorous\".\r\n\r\n\r\n\r\n\r\n",
+              "createdAt": "2021-06-18T02:26:30Z",
+              "updatedAt": "2021-06-18T02:26:30Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg2OTk2MjE1",
+          "commit": {
+            "abbreviatedOid": "dc8d7fd"
+          },
+          "author": "mnot",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-18T03:10:55Z",
+          "updatedAt": "2021-06-18T03:10:55Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "Yes - that's why it's a SHOULD. And conforming with that SHOULD will not require scanning a second time for every request -- only when there's a need to distinguish between the two errors. \r\n\r\nThe reason that promoting this to the semantic layer when possible is important is that it's more likely to reach that engineer, through protocol hops and APIs that don't know about h2 error codes.",
+              "createdAt": "2021-06-18T03:10:55Z",
+              "updatedAt": "2021-06-18T03:10:55Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg3MTM2NzMy",
+          "commit": {
+            "abbreviatedOid": "dc8d7fd"
+          },
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-18T08:00:44Z",
+          "updatedAt": "2021-06-18T08:00:44Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "@mnot, what I'm not understanding is why you see two types of error?   I'm not disputing how they should be handled, only that the spec should allow all syntax validation failures of fields to be handled equally.   Ie SHOULD send a 400 for a field name with a space just as much as for one with a double quote.   If you can't send a 400, then treat as malformed.\r\n\r\nThe validation was added to the spec for security reason, because space, `:` and control characters are potentially dangerous if forwarded.  But I just don't see that makes them a different class of error to a field with a double quote and no less deserving of a clear signal that will reach an engineer.   If anything they are more deserving of a clear signal as they very likely indicate an attack.\r\n\r\nSo can you explain to me why you see a \"need to distinguish between\" an invalid field with a space vs one with a double quote?  Why can't  the spec be written in a way to encourage best practise for both?\r\n\r\n",
+              "createdAt": "2021-06-18T08:00:44Z",
+              "updatedAt": "2021-06-18T08:00:44Z"
             }
           ]
         }
