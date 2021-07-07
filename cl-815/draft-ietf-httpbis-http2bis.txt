@@ -6,7 +6,7 @@ HTTPbis                                                  M. Thomson, Ed.
 Internet-Draft                                                   Mozilla
 Obsoletes: 7540, 8740 (if approved)                     C. Benfield, Ed.
 Intended status: Standards Track                              Apple Inc.
-Expires: 5 December 2021                                     3 June 2021
+Expires: 8 January 2022                                      7 July 2021
 
 
              Hypertext Transfer Protocol Version 2 (HTTP/2)
@@ -27,11 +27,11 @@ Abstract
 
 Discussion Venues
 
+   This note is to be removed before publishing as an RFC.
+
    Discussion of this document takes place on the HTTPBIS Working Group
    mailing list (ietf-http-wg@w3.org), which is archived at
    https://lists.w3.org/Archives/Public/ietf-http-wg/.
-
-   This note is to be removed before publishing as an RFC.
 
    Source for this draft and an issue tracker can be found at
    https://github.com/httpwg/http2-spec.
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 December 2021.
+   This Internet-Draft will expire on 8 January 2022.
 
 Copyright Notice
 
@@ -2251,17 +2251,16 @@ Table of Contents
 
    Field names are strings of ASCII characters that are compared in a
    case-insensitive fashion.  Field names MUST be converted to lowercase
-   when constructing a HTTP/2 message.  A request or response containing
-   an uppercase character ('A' to 'Z', ASCII 0x41 to 0x5a) in a field
-   name MUST be treated as malformed (Section 8.1.2.6).
+   when constructing a HTTP/2 message.
 
    HPACK is capable of carrying field names or values that are not valid
    in HTTP.  Though HPACK can carry any octet, fields are not valid in
    the following cases:
 
-   *  A field name MUST NOT contain characters in the range 0x00-0x20 or
-      0x7F-0xFF (both ranges inclusive).  This limits field names to
-      visible ASCII characters, other than ASCII SP (0x20).
+   *  A field name MUST NOT contain characters in the ranges 0x00-0x20,
+      0x41-0x5A, or 0x7F-0xFF (all ranges inclusive).  This limits field
+      names to visible ASCII characters, other than ASCII SP (0x20) and
+      uppercase characters ('A' to 'Z', ASCII 0x41 to 0x5a).
 
    *  With the exception of pseudo-header fields (Section 8.1.2.1),
       which have a name that starts with a single colon, field names
@@ -3567,7 +3566,7 @@ Table of Contents
               Ed., "HTTP Caching", Work in Progress, Internet-Draft,
               draft-ietf-httpbis-cache-15, 30 March 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              cache-15.txt>.
+              cache-15>.
 
    [COMPRESSION]
               Peon, R. and H. Ruellan, "HPACK: Header Compression for
@@ -3585,7 +3584,7 @@ Table of Contents
               Ed., "HTTP Semantics", Work in Progress, Internet-Draft,
               draft-ietf-httpbis-semantics-15, 30 March 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              semantics-15.txt>.
+              semantics-15>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997,
@@ -3653,14 +3652,14 @@ Table of Contents
               Ed., "HTTP/1.1", Work in Progress, Internet-Draft, draft-
               ietf-httpbis-messaging-15, 30 March 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              messaging-15.txt>.
+              messaging-15>.
 
    [I-D.ietf-httpbis-priority]
               Oku, K. and L. Pardue, "Extensible Prioritization Scheme
               for HTTP", Work in Progress, Internet-Draft, draft-ietf-
               httpbis-priority-03, 11 January 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              priority-03.txt>.
+              priority-03>.
 
    [NFLX-2019-002]
               Netflix, "HTTP/2 Denial of Service Advisory", 13 August
@@ -4021,6 +4020,11 @@ Appendix B.  Changes from RFC 7540
    *  The HTTP/1.1 Upgrade mechanism is no longer specified in this
       document.  It was never widely deployed, with plaintext HTTP/2
       users choosing to use the prior-knowledge implementation instead.
+
+   *  Validation for field names and values has been narrowed.  The
+      validation that is mandatory for intermediaries is precisely
+      defined and error reporting for requests has been amended to allow
+      for 400-series status codes.
 
    *  The ranges of codepoints for settings and frame types that were
       reserved for "Experimental Use" are now available for general use.
