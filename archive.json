@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-06-20T00:58:41.066783+00:00",
+  "timestamp": "2021-07-08T00:56:25.386666+00:00",
   "repo": "httpwg/http2-spec",
   "labels": [
     {
@@ -18664,9 +18664,9 @@
       "id": "MDU6SXNzdWU3NDA2NjQyOTY=",
       "title": "Consider guidance for new field design wrt compression",
       "url": "https://github.com/httpwg/http2-spec/issues/790",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "LPardue",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [
         "mnot"
       ],
@@ -18675,8 +18675,8 @@
       ],
       "body": "This request is motivated by reading RFC 7540 and remembering there's a section all about cookie crumbling.\r\n\r\nIs there an opportunity to borrow some of the words from https://www.mnot.net/blog/2018/11/27/header_compression?",
       "createdAt": "2020-11-11T10:44:04Z",
-      "updatedAt": "2021-02-09T23:04:51Z",
-      "closedAt": null,
+      "updatedAt": "2021-07-07T12:14:30Z",
+      "closedAt": "2021-07-07T12:14:30Z",
       "comments": [
         {
           "author": "mnot",
@@ -18684,6 +18684,27 @@
           "body": "@mnot to try to condense into something appropriate and then we'll figure out where it might live.",
           "createdAt": "2021-02-09T22:41:51Z",
           "updatedAt": "2021-02-09T22:41:51Z"
+        },
+        {
+          "author": "mnot",
+          "authorAssociation": "MEMBER",
+          "body": "Upon reflection, I don't think it's a good idea to put advice for new headers into a specific version of the protocol -- it's not an appropriate place. The cookie crumbing text in h2 is a one-off hack to accommodate a specific situation; I don't think we're contemplating any more of that.\r\n\r\nSo from my perspective this can be closed without action.",
+          "createdAt": "2021-07-07T07:04:38Z",
+          "updatedAt": "2021-07-07T07:04:38Z"
+        },
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "That there is excellent rationale.  Unless @LPardue objects, I'm happy to close this as a BCP-56 or HTTP-core type of problem.",
+          "createdAt": "2021-07-07T07:14:29Z",
+          "updatedAt": "2021-07-07T07:14:29Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "No objection, let's close. ",
+          "createdAt": "2021-07-07T10:49:26Z",
+          "updatedAt": "2021-07-07T10:49:26Z"
         }
       ]
     },
@@ -19093,7 +19114,7 @@
       "id": "MDU6SXNzdWU4MjE3NDM3NDc=",
       "title": "Tweaking registry policies",
       "url": "https://github.com/httpwg/http2-spec/issues/826",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mnot",
       "authorAssociation": "MEMBER",
       "assignees": [
@@ -19103,8 +19124,8 @@
       "labels": [],
       "body": "There's currently a slight divergence in IANA policies between h2 and h3:\r\n\r\n- Frame Types: IETF Review, Experimental Use (h2) / Standards Action, Specification Required (h3)\r\n- Settings: Expert Review, Experimental Use / Standards Action, Specification Required\r\n- Error Codes: Expert Review / Standards Action, Specification Required\r\n\r\nIf we can align these with low pain, it might be worthwhile; e.g., can we get rid of the experimental use areas and upgrade Expert Review to Specification Required?",
       "createdAt": "2021-03-04T04:36:24Z",
-      "updatedAt": "2021-06-15T21:48:42Z",
-      "closedAt": null,
+      "updatedAt": "2021-07-07T07:15:44Z",
+      "closedAt": "2021-07-07T07:15:44Z",
       "comments": [
         {
           "author": "martinthomson",
@@ -19126,6 +19147,20 @@
           "body": "There are two potential changes here: dropping experimental use and adding provisional registrations.  I think that I prefer doing just the former.  The registration policies we have are loose enough that we don't really gain much from provisional registrations, nor does it really change how things work in practice.\r\n\r\nQUIC has the notion that we might claw back provisional registrations, but that only really exists so that we can maybe reclaim the short codepoints in the small 0x00-0x3f range, which people are already camping out in as if they own them.  HTTP/2 has a flat space, which means we probably don't need to worry as much.  Frame types are scarce, but we can maybe use settings to overload those as necessary.  And the existence of HTTP/3 should relieve a lot of pressure on HTTP/2 anyway.",
           "createdAt": "2021-05-24T10:26:45Z",
           "updatedAt": "2021-05-24T10:26:45Z"
+        },
+        {
+          "author": "mnot",
+          "authorAssociation": "MEMBER",
+          "body": "I think I agree. Happy to close with the PR above already merged.",
+          "createdAt": "2021-07-07T07:01:29Z",
+          "updatedAt": "2021-07-07T07:01:29Z"
+        },
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "\\o/ thanks.",
+          "createdAt": "2021-07-07T07:15:44Z",
+          "updatedAt": "2021-07-07T07:15:44Z"
         }
       ]
     },
@@ -19364,7 +19399,7 @@
       "id": "MDU6SXNzdWU4MzkyMzcxODU=",
       "title": "Use subsections not bullets for pseudo-header field descriptions",
       "url": "https://github.com/httpwg/http2-spec/issues/834",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "martinthomson",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -19373,9 +19408,17 @@
       ],
       "body": "These are getting a little unwieldy as list items, so it is probably time to consider an addressable section for each.  See #830.",
       "createdAt": "2021-03-24T00:41:42Z",
-      "updatedAt": "2021-04-22T04:11:02Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2021-07-07T07:17:29Z",
+      "closedAt": "2021-07-07T07:17:29Z",
+      "comments": [
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "On reviewing this one, I don't want to add a level 5 heading.  It's bad enough that we have so much hidden at level 4 already.  A more substantial restructuring would be the only acceptable answer without that and that isn't going to happen.",
+          "createdAt": "2021-07-07T07:17:29Z",
+          "updatedAt": "2021-07-07T07:17:29Z"
+        }
+      ]
     },
     {
       "number": 841,
@@ -19449,17 +19492,17 @@
       "id": "MDU6SXNzdWU4OTY2NzczMDg=",
       "title": "Is Content-Length acceptable on CONNECT request?",
       "url": "https://github.com/httpwg/http2-spec/issues/849",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "LPardue",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [
         "Lukasa"
       ],
       "labels": [],
       "body": "Up-to-date HTTP core specs say in https://httpwg.org/http-core/draft-ietf-httpbis-semantics-latest.html#rfc.section.9.3.6.p.12\r\n\r\n> A server MUST NOT send any Transfer-Encoding or Content-Length header fields in a 2xx (Successful) response to CONNECT. A client MUST ignore any Content-Length or Transfer-Encoding header fields received in a successful response to CONNECT.\r\n> \r\n> A CONNECT request message does not have content. The interpretation of and allowability of data sent after the header section of the CONNECT request message is specific to the version of HTTP in use.\r\n\r\nBut https://datatracker.ietf.org/doc/html/rfc7540#section-8.3 makes it difficult to see if Content-Length is allowed on request.\r\n\r\nIt's clear that RFC7540 considers CONNECT requests to have no content. And it's clear that for normal request that if the sum of DATA frames don't match the sum Content-Length then its an error. But it is unclear if the server should quickly reject CONNECT requests that contain \"Content-Length: N\" (for N > 0), or how they should deal with \"Content-Length: 0\".",
       "createdAt": "2021-05-20T11:24:27Z",
-      "updatedAt": "2021-05-24T11:07:00Z",
-      "closedAt": null,
+      "updatedAt": "2021-07-07T11:14:12Z",
+      "closedAt": "2021-07-07T11:14:12Z",
       "comments": [
         {
           "author": "Lukasa",
@@ -19467,6 +19510,13 @@
           "body": "I don't think we need to make any changes here.\r\n\r\nAs you quote, CONNECT requests are defined to not have content. This means that they're covered by Semantics \u00a7 8.6 (https://httpwg.org/http-core/draft-ietf-httpbis-semantics-latest.html#rfc.section.8.6) which reads:\r\n\r\n> A user agent SHOULD NOT send a Content-Length header field when the request message does not contain content and the method semantics do not anticipate such data.\r\n\r\nNo behaviour is specified for a peer that receives such a message, but one assumes that it has the same rough behaviour as, say, sending a Content-Length header field on GET: the semantics are unspecified and so not interoperable. You get what you get. Essentially, implementations are free to do whatever they want when they receive the Content-Length header field on a CONNECT request: they may apply the H2's strict Content-Length policing semantics (in which case any non-zero value should fail), or they may error immediately, or they may ignore the value.\r\n\r\nIn this instance I don't think there is any value in H2 specifying any additional behaviour above-and-beyond what semantics requires, as the fundamental problem is common across all HTTP messaging formats.",
           "createdAt": "2021-05-24T11:06:45Z",
           "updatedAt": "2021-05-24T11:07:00Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree with your points, let's close this.",
+          "createdAt": "2021-07-07T10:35:59Z",
+          "updatedAt": "2021-07-07T10:35:59Z"
         }
       ]
     },
@@ -19562,15 +19612,15 @@
       "id": "MDU6SXNzdWU5MTAwNTg5NzE=",
       "title": "Minimum value setting mechanism of HTTP2.0 Window and Window_update",
       "url": "https://github.com/httpwg/http2-spec/issues/863",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "Maisy-ML",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "RFC 7540 just Specifies the maximum value of Window and the Window  Size Increment, But there is no obvious rule about minimum values.  In the current network, there is no standard minimum setting, which  leads to the inconsistency of message processing between  communication parties, may led to the situation that the  message will be determined as an attack by the recipient, actually  frequent window_UPDATE frames can result in a denial of service.\r\nwe  proposed the minimum value setting mechanism of HTTP2.0   Window and Window_update, and a window_update frame sending  mechanism.",
       "createdAt": "2021-06-03T03:28:06Z",
-      "updatedAt": "2021-06-04T03:28:14Z",
-      "closedAt": null,
+      "updatedAt": "2021-07-07T07:04:03Z",
+      "closedAt": "2021-07-07T07:04:03Z",
       "comments": [
         {
           "author": "martinthomson",
@@ -19592,6 +19642,13 @@
           "body": "I have a question,  what cases will there be a small update, what is the range of updates for the smallest increment?",
           "createdAt": "2021-06-04T03:28:13Z",
           "updatedAt": "2021-06-04T03:28:13Z"
+        },
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I don't think that we have specific advice on the minimum size of an update, nor do I think that is appropriate as it will depend on the structure of implementations.  As noted, we only talk about the need to recognize the potential for multiple small updates to cause DoS.  However, small updates are valid in some circumstances.\r\n\r\nWe discussed this at the last interim and the working group agreed that no change to the document was necessary.  As always, if you think that a specific change would improve the document, proposing a change using a pull request is preferred.",
+          "createdAt": "2021-07-07T07:04:03Z",
+          "updatedAt": "2021-07-07T07:04:03Z"
         }
       ]
     },
@@ -19600,17 +19657,19 @@
       "id": "MDU6SXNzdWU5MjE4NDI0NDQ=",
       "title": "Errors at the border of framing and semantics",
       "url": "https://github.com/httpwg/http2-spec/issues/865",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "martinthomson",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
         "mnot"
       ],
-      "labels": [],
+      "labels": [
+        "has-proposal"
+      ],
       "body": "Validating fields for characters has raised a concern where we don't have a clear delineation between framing and semantics.  So the way that endpoints handle those cases is unclear.  For requests in particular, the choice between resetting a stream and sending a 4xx response is unclear.\r\n\r\nIt would be good if we could have more consistent overall behaviour here, but we have seen from the character composition issue (see #815) that different implementations will enforce the rules at different layers.  We probably need to allow for some flexibility.\r\n\r\n@mnot has volunteered to help us navigate this somewhat nuanced issue. ",
       "createdAt": "2021-06-15T22:07:23Z",
-      "updatedAt": "2021-06-15T22:07:23Z",
-      "closedAt": null,
+      "updatedAt": "2021-07-07T07:11:40Z",
+      "closedAt": "2021-07-07T07:11:40Z",
       "comments": []
     },
     {
@@ -34453,7 +34512,7 @@
       ],
       "body": "I haven't adjusted for `artwork` vs. `sourcecode` until that war is over.\r\n\r\nNote that I've explicitly added a format for the SETTINGS frame itself, which was missing.",
       "createdAt": "2021-06-03T00:47:17Z",
-      "updatedAt": "2021-06-03T07:06:42Z",
+      "updatedAt": "2021-07-07T11:20:34Z",
       "baseRepository": "httpwg/http2-spec",
       "baseRefName": "main",
       "baseRefOid": "b24293090c7b833f8818f8167fc2383b0077b64a",
@@ -34709,6 +34768,26 @@
               "body": "Oh wait, no we don't -- that's just loose use of the term 'flag' in 7540. Hold on a sec...",
               "createdAt": "2021-06-03T07:03:03Z",
               "updatedAt": "2021-06-03T07:03:03Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAwODgyMDQ5",
+          "commit": {
+            "abbreviatedOid": "a14c7c7"
+          },
+          "author": "Lukasa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-07T11:19:09Z",
+          "updatedAt": "2021-07-07T11:20:34Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "I believe these flags (and all the other flags) are defined in the wrong bit order.\r\n\r\nThis is...not entirely well specified in RFC 9000, but the example given in \u00a7 1.3 is:\r\n\r\n```\r\nExample Structure {\r\n  One-bit Field (1),\r\n  7-bit Field with Fixed Value (7) = 61,\r\n  Field with Variable-Length Integer (i),\r\n  Arbitrary-Length Field (..),\r\n  Variable-Length Field (8..24),\r\n  Field With Minimum Length (16..),\r\n  Field With Maximum Length (..128),\r\n  [Optional Field (64)],\r\n  Repeated Field (8) ...,\r\n}\r\n```\r\n\r\nWith the following prose after it:\r\n\r\n> When a single-bit field is referenced in prose, the position of that field can be clarified by using the value of the byte that carries the field with the field's value set. For example, the value 0x80 could be used to refer to the single-bit field in the most significant bit of the byte, such as One-bit Field in Figure 1.\r\n\r\nThis implies that `0x80` refers to the first bit of a byte. `END_STREAM` is not 0x80, it's 0x1. All of the flags sections need to be inverted.",
+              "createdAt": "2021-07-07T11:19:10Z",
+              "updatedAt": "2021-07-07T11:20:34Z"
             }
           ]
         }
@@ -35186,25 +35265,42 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NjcwODYwNTEy",
       "title": "Discuss invalid field names and values",
       "url": "https://github.com/httpwg/http2-spec/pull/866",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mnot",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "Fixes #865",
       "createdAt": "2021-06-16T00:12:10Z",
-      "updatedAt": "2021-06-18T08:00:44Z",
+      "updatedAt": "2021-07-07T07:13:05Z",
       "baseRepository": "httpwg/http2-spec",
       "baseRefName": "main",
       "baseRefOid": "0d552116b4a939c5c75f2756318d2387448c2f50",
       "headRepository": "mnot/http2-spec",
       "headRefName": "mnot-validation",
-      "headRefOid": "dc8d7fd177b968fba783aa1f374274e41ccce003",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "341123059c682dc605f5773f15ed18779d897e21",
+      "closedAt": "2021-07-07T07:11:40Z",
+      "mergedAt": "2021-07-07T07:11:40Z",
+      "mergedBy": "martinthomson",
+      "mergeCommit": {
+        "oid": "a6fedf548ec893314a4ea1e97ba56c53ed648b27"
+      },
+      "comments": [
+        {
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "See #868 as an alternative.",
+          "createdAt": "2021-07-07T05:27:29Z",
+          "updatedAt": "2021-07-07T05:27:29Z"
+        },
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks everyone for your patience here.  It's good to see this work out :)",
+          "createdAt": "2021-07-07T07:12:01Z",
+          "updatedAt": "2021-07-07T07:12:01Z"
+        }
+      ],
       "reviews": [
         {
           "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg1MDQ5Mzgw",
@@ -35358,6 +35454,299 @@
               "updatedAt": "2021-06-18T08:00:44Z"
             }
           ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAwNTg5OTc3",
+          "commit": {
+            "abbreviatedOid": "dc8d7fd"
+          },
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-07T05:26:23Z",
+          "updatedAt": "2021-07-07T05:26:23Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "I think we are making heavy work of this section by trying to treat a 400 response as something different to malformed message handling.  Malformed message handling already allows a response code to be sent at MAY strength. I think the text is simpler if we just say treat as malformed and then add a SHOULD for 400 responses to requests if possible.\r\n\r\nThe additional validation can then be simply handled as an optional bullet point in the list of validations.  I have created PR #868 with these changes.\r\n",
+              "createdAt": "2021-07-07T05:26:23Z",
+              "updatedAt": "2021-07-07T05:26:23Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAwNjIxNTMw",
+          "commit": {
+            "abbreviatedOid": "dc8d7fd"
+          },
+          "author": "mnot",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-07T06:28:43Z",
+          "updatedAt": "2021-07-07T06:28:44Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "@gregw I think you're right; pushing a revision shortly.",
+              "createdAt": "2021-07-07T06:28:44Z",
+              "updatedAt": "2021-07-07T06:28:44Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAwNjM4NTI0",
+          "commit": {
+            "abbreviatedOid": "3411230"
+          },
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2021-07-07T06:54:10Z",
+          "updatedAt": "2021-07-07T06:54:10Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 868,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg0ODczNjk0",
+      "title": "Alternate for #866 Invalid field handling",
+      "url": "https://github.com/httpwg/http2-spec/pull/868",
+      "state": "CLOSED",
+      "author": "gregw",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Removed distinction between treating as malformed and sending a 400, since treating as malformed already\r\nallows a 400 to be sent.\r\n\r\nThis uses some text from #866 and replaces that PR.",
+      "createdAt": "2021-07-07T05:23:49Z",
+      "updatedAt": "2021-07-07T22:23:35Z",
+      "baseRepository": "httpwg/http2-spec",
+      "baseRefName": "main",
+      "baseRefOid": "0d552116b4a939c5c75f2756318d2387448c2f50",
+      "headRepository": "gregw/http2-spec",
+      "headRefName": "invalid-fields",
+      "headRefOid": "3cebe356052a41e3c256e56b309916992bc18d94",
+      "closedAt": "2021-07-07T06:54:47Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The outcome I'm striving for here is to avoid the situation where the spec has two classes of invalid fields.  With #866 it currently has that a message with one type of invalid character MUSTS be treated as malformed and that bad response code MAY be sent;   but for some other types of invalid characters it just says a bad response code SHOULD be sent otherwise MUST treated as malformed  (which then says a bad response code MAY be sent).\r\n\r\nThis PR simplies it to saying that all messages with invalid characters MUST be treated as  malformed and that if the message is a request then a bad response code SHOULD be sent.    \r\nThe definition of invalid characters optionally include those disallows by HTTP.\r\n\r\n\r\n\r\n",
+          "createdAt": "2021-07-07T05:34:30Z",
+          "updatedAt": "2021-07-07T05:34:30Z"
+        },
+        {
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@mnot @martinthomson ",
+          "createdAt": "2021-07-07T05:34:43Z",
+          "updatedAt": "2021-07-07T05:34:43Z"
+        },
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "So this makes the recommendation to use 400 stronger; extending it to include more fields.  I think that's OK, but I'm going to defer to @mnot on this.  I'm OK with either; this might even be better.",
+          "createdAt": "2021-07-07T06:11:12Z",
+          "updatedAt": "2021-07-07T06:12:02Z"
+        },
+        {
+          "author": "mnot",
+          "authorAssociation": "MEMBER",
+          "body": "I did a rewrite, PTAL. Happy to review this one but I'd be suggesting a number of edits here.",
+          "createdAt": "2021-07-07T06:31:22Z",
+          "updatedAt": "2021-07-07T06:31:22Z"
+        },
+        {
+          "author": "gregw",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "closed in favour of the updated #866 ",
+          "createdAt": "2021-07-07T06:54:47Z",
+          "updatedAt": "2021-07-07T06:54:47Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 869,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg0OTE2NTM5",
+      "title": "Mark HTTP2-Settings obsolete properly",
+      "url": "https://github.com/httpwg/http2-spec/pull/869",
+      "state": "OPEN",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "editorial"
+      ],
+      "body": "Closes #843.",
+      "createdAt": "2021-07-07T06:53:01Z",
+      "updatedAt": "2021-07-07T09:21:02Z",
+      "baseRepository": "httpwg/http2-spec",
+      "baseRefName": "main",
+      "baseRefOid": "0d552116b4a939c5c75f2756318d2387448c2f50",
+      "headRepository": "martinthomson/http2v2",
+      "headRefName": "header-rego",
+      "headRefOid": "97b9b7a8dbe757df06690303faf5969f174bbd40",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAwNzc2MTY2",
+          "commit": {
+            "abbreviatedOid": "97b9b7a"
+          },
+          "author": "Lukasa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-07-07T09:21:02Z",
+          "updatedAt": "2021-07-07T09:21:02Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 870,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg0OTIwNDU4",
+      "title": "A leaner acknowledgments section",
+      "url": "https://github.com/httpwg/http2-spec/pull/870",
+      "state": "OPEN",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "editorial"
+      ],
+      "body": "Now without the \"e\" too.\r\n\r\nFor this revision I would consider Mark Nottingham, Willy Tarreau, and\r\nGreg Wilkins for direct acknowledgment, but as they are all listed in\r\nRFC 7540 it seems safer to avoid specific mentions here.\r\n\r\nCloses #862.",
+      "createdAt": "2021-07-07T07:00:32Z",
+      "updatedAt": "2021-07-07T09:23:03Z",
+      "baseRepository": "httpwg/http2-spec",
+      "baseRefName": "main",
+      "baseRefOid": "0d552116b4a939c5c75f2756318d2387448c2f50",
+      "headRepository": "martinthomson/http2v2",
+      "headRefName": "acks",
+      "headRefOid": "f4380d21acf443db833437775ab6dffa36f2e33f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAwNzc4MjI5",
+          "commit": {
+            "abbreviatedOid": "f4380d2"
+          },
+          "author": "Lukasa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-07-07T09:23:03Z",
+          "updatedAt": "2021-07-07T09:23:03Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 871,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg0OTI2MDcy",
+      "title": "Change log for character validation",
+      "url": "https://github.com/httpwg/http2-spec/pull/871",
+      "state": "CLOSED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The only change we have planned for the draft that isn't in the change\r\nlog yet.\r\n\r\nCaptures #865 changes, whether that is via #866 or other changes, the\r\nsubstance of the change is roughly the same.\r\n\r\nCloses #862.",
+      "createdAt": "2021-07-07T07:08:47Z",
+      "updatedAt": "2021-07-07T07:09:52Z",
+      "baseRepository": "httpwg/http2-spec",
+      "baseRefName": "main",
+      "baseRefOid": "0d552116b4a939c5c75f2756318d2387448c2f50",
+      "headRepository": "martinthomson/http2v2",
+      "headRefName": "cl-815",
+      "headRefOid": "220d63b2ea1313636bf7b281356f8baa354eaed7",
+      "closedAt": "2021-07-07T07:09:52Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Oops, closes the wrong issue.  I'll try again.",
+          "createdAt": "2021-07-07T07:09:52Z",
+          "updatedAt": "2021-07-07T07:09:52Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 872,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg0OTI3MTE0",
+      "title": "Change log for character validation",
+      "url": "https://github.com/httpwg/http2-spec/pull/872",
+      "state": "OPEN",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The only change we have planned for the draft that isn't in the change\r\nlog yet.\r\n\r\nCaptures #865 changes, whether that is via #866 or other changes, the\r\nsubstance of the change is roughly the same.\r\n\r\nCloses #852.",
+      "createdAt": "2021-07-07T07:10:26Z",
+      "updatedAt": "2021-07-07T09:24:48Z",
+      "baseRepository": "httpwg/http2-spec",
+      "baseRefName": "main",
+      "baseRefOid": "0d552116b4a939c5c75f2756318d2387448c2f50",
+      "headRepository": "httpwg/http2-spec",
+      "headRefName": "cl-815",
+      "headRefOid": "531a8b6174c9d9866ec06cdb1f7931e893d92a16",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAwNjUyMDYw",
+          "commit": {
+            "abbreviatedOid": "e3819f6"
+          },
+          "author": "mnot",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-07T07:11:33Z",
+          "updatedAt": "2021-07-07T07:11:33Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\n          to encourage sending 400-series status codes.\r\n```",
+              "createdAt": "2021-07-07T07:11:33Z",
+              "updatedAt": "2021-07-07T07:11:33Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAwNzc5OTg3",
+          "commit": {
+            "abbreviatedOid": "531a8b6"
+          },
+          "author": "Lukasa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-07-07T09:24:48Z",
+          "updatedAt": "2021-07-07T09:24:48Z",
+          "comments": []
         }
       ]
     }
