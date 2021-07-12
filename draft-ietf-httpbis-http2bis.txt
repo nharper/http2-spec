@@ -3353,8 +3353,8 @@ Table of Contents
    error codes.  These new registries appear in the new "Hypertext
    Transfer Protocol version 2 (HTTP/2)" section.
 
-   This document registers the "HTTP2-Settings" header field for use in
-   HTTP.
+   This revision of the document marks the "HTTP2-Settings" header field
+   registered in [RFC7540] obsolete.
 
    This document registers the "PRI" method for use in HTTP to avoid
    collisions with the connection preface (Section 3.4).
@@ -3545,7 +3545,16 @@ Table of Contents
 11.5.  HTTP2-Settings Header Field Registration
 
    This section marks the "HTTP2-Settings" header field registered in
-   Section 11.5 of [RFC7540] as obsoleted.
+   Section 11.5 of [RFC7540] as obsoleted.  The registration is updated
+   to include the details as required by Section 18.4 of [HTTP]:
+
+   Field Name:  HTTP2-Settings
+
+   Status:  Standard
+
+   Ref.:  Section 3.2.1 of [RFC7540]
+
+   Comments:  Obsolete; see Section 11.5
 
 11.6.  PRI Method Registration
 
