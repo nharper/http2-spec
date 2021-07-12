@@ -6,7 +6,7 @@ HTTPbis                                                  M. Thomson, Ed.
 Internet-Draft                                                   Mozilla
 Obsoletes: 7540, 8740 (if approved)                     C. Benfield, Ed.
 Intended status: Standards Track                              Apple Inc.
-Expires: 8 January 2022                                      7 July 2021
+Expires: 13 January 2022                                    12 July 2021
 
 
              Hypertext Transfer Protocol Version 2 (HTTP/2)
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 January 2022.
+   This Internet-Draft will expire on 13 January 2022.
 
 Copyright Notice
 
@@ -4032,6 +4032,11 @@ Appendix B.  Changes from RFC 7540
    *  The HTTP/1.1 Upgrade mechanism is no longer specified in this
       document.  It was never widely deployed, with plaintext HTTP/2
       users choosing to use the prior-knowledge implementation instead.
+
+   *  Validation for field names and values has been narrowed.  The
+      validation that is mandatory for intermediaries is precisely
+      defined and error reporting for requests has been amended to
+      encourage sending 400-series status codes.
 
    *  The ranges of codepoints for settings and frame types that were
       reserved for "Experimental Use" are now available for general use.
